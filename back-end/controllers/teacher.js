@@ -1,3 +1,4 @@
+const {Teacher} = require("../model")
 module.exports = {
   getAllTeacher: async (req, res) => {
    
