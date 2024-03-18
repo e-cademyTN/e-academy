@@ -1,6 +1,5 @@
+const {User} = require("../model")
 require('dotenv').config()
-
-
 module.exports = {
     createProfile: async (req, res) => {
     
@@ -8,10 +7,8 @@ module.exports = {
     signin: async (req, res) => {
         
     },
-
     getAllUsers: async (req, res) => {
        
-      
     },
     deleteUser: async (req, res) => {
         
