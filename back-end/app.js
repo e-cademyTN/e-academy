@@ -2,10 +2,11 @@ const express = require('express')
 const cors = require('cors')
 const usersRouter = require('./routes/users')
 const materialRouter = require('./routes/material')
-const teacherRouter = require('./controllers/teacher')
+const teacherRouter = require('./routes/teacher')
 var morgan = require('morgan')
 const app = express()
 const port = 3000
+
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json());
