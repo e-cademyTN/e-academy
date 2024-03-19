@@ -1,17 +1,17 @@
 const express = require('express')
 const router = express.Router()
 
-const {createProfile,signin,getAllUsers,deleteUser,getUserId } = require('../controllers/users')
+const {signup,signin,getAllUsers,updateUser} = require('../controllers/users')
 
 const isAdminAuthenticated = require('../middlewares/isAdminAuthenticated')
 const isUserAuthenticated = require('../middlewares/isUserAuthenticated')
 
-router.get('/users',isAdminAuthenticated, getAllUsers)
-router.delete('/users/:id',isAdminAuthenticated, deleteUser)
-
-router.post('/signup',createProfile)
+router.post('/signup',signup)
 router.post('/signin',signin)
+//admin
+router.get('/getAll',isAdminAuthenticated, getAllUsers)
+//user
 
-router.get('/users/payload/:token',isUserAuthenticated, getUserId)
+router.put('/update/:id',isUserAuthenticated, updateUser)
 
 module.exports = router
