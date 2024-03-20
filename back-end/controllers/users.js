@@ -2,12 +2,14 @@ const bcrypt = require("bcrypt")
 const {User} = require("../model")
 const jwt = require("jsonwebtoken");
 require('dotenv').config()
-module.exports = {
-    signup: async (req, res) => {
-        let {email,password,firstName,imageUrl,lastName}=req.body
+
+   const signup= async (req, res) => {
+        // getting the data
+        const {email,firstName,lastName,password,role}=req.body
         try {
             //checking if the email is already in use
             const checkemail=await User.findOne({where:{email:email}})
+
             if (checkemail) {
                 return res.status(400).json({ error: "existing account  " });
             }
@@ -16,19 +18,19 @@ module.exports = {
             //creating the new user
             const user = await User.create({
                 firstName:firstName,
-                imageUrl:imageUrl,
+                imageUrl:req.files[0].originalname,
                 lastName:lastName,
                 email: email,
                 password: hashedpass,
-                role:'student'
+                role:role
             });
             res.status(201).send(user)
         } catch (error) {
             console.error(error);
             res.status(500).send(error); 
         }
-    },
-    signin: async (req, res) => {
+    }
+   const signin= async (req, res) => {
         try {
             // cheking if the email and password are not a falsy value
             const {email,password}=req.body
@@ -58,22 +60,25 @@ module.exports = {
                     expiresIn: "1d",
                 }
             );
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace('-', '+').replace('_', '/');
-            const payload =JSON.parse(atob(base64)) 
-            res.status(200).json({ payload, token, message: 'succeeded' });
+            let student={
+                id:user.id,
+                firstName:user.firstName,
+                lastName:user.lastName,
+                imageUrl:user.imageUrl
+            }
+            res.status(200).json({ student, token, message: 'succeeded' });
         } catch (error) {
             console.error(error);
             res.status(500).send(error); 
         }
-    },
-    getAllUsers: async (req, res) => {
+    }
+   const getAllUsers= async (req, res) => {
        
-    },
-    updateUser:async(req,res)=>{
+    }
+    const updateUser=async(req,res)=>{
 
     }
     
 
-}
+    module.exports = {signin,signup,getAllUsers,updateUser}
 
