@@ -1,24 +1,20 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import styles from "./styles.module.css";
 
 const Login = () => {
-	const [data, setData] = useState({ email: "", password: "" });
-	const [error, setError] = useState("");
-
-	const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
-	};
-	const handleSubmit = async (username, password) => {
+	const navigate=useNavigate()
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const handleSubmit = async () => {
 		try {
-		  const { data, status } = await axios.post(
-			"http://127.0.0.1:3000/api/user/signin",
-			{ username, password }
-		  );
-		  if (status == 200) {
-			localStorage.setItem("token", data);
-			navigateTo("/userHome");
+			const info={email,password}
+			console.log(info)
+		  const res = await axios.post("http://127.0.0.1:3000/api/users/signin",info);
+		  if (res.status == 200) {
+			localStorage.setItem("token", res.data);
+			navigate("/userHome");
 		  }
 		} catch (error) {
 		  console.error(error);
@@ -35,8 +31,8 @@ const Login = () => {
 							type="email"
 							placeholder="Email"
 							name="email"
-							onChange={handleChange}
-							value={data.email}
+							onChange={(e)=>setEmail(e.target.value)}
+							value={email}
 							required
 							className={styles.input}
 						/>
@@ -44,12 +40,12 @@ const Login = () => {
 							type="password"
 							placeholder="Password"
 							name="password"
-							onChange={handleChange}
-							value={data.password}
+							onChange={e=>setPassword(e.target.value)}
+							value={password}
 							required
 							className={styles.input}
 						/>
-						{error && <div className={styles.error_msg}>{error}</div>}
+						
 						<button type="submit" onClick={()=>{handleSubmit()}} className={styles.green_btn}>
 							Sing In
 						</button>
@@ -57,11 +53,11 @@ const Login = () => {
 				</div>
 				<div className={styles.right}>
 					<h1>New Here ?</h1>
-					<Link to="/signup">
-						<button type="button" className={styles.white_btn}>
+					
+						<button type="button" onClick={()=>navigate('/signup')} className={styles.white_btn}>
 							Sing Up
 						</button>
-					</Link>
+					
 				</div>
 			</div>
 		</div>
