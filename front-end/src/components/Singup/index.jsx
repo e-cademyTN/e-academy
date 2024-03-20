@@ -1,44 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import styles from "./styles.module.css";
 
 const Signup = () => {
-  const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    role: "student",
-    image: null,
-  });
- const[ profileImg,setprof]=useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-
-  const handleChange = ({ currentTarget: input }) => {
-    if (input.type === "file") {
-      setData({ ...data, image: input.files[0] });
-    } else {
-      setData({ ...data, [input.name]: input.value });
-    }
-  };
-
+  const [firstName, setfirst] = useState("");
+  const [email, setEmail] = useState("");
+  const [lastName, setlast] = useState("");
+  const [password, setPassword] = useState("");
+  const [image, setImage] = useState(null);
+  const [profileImg,setprof]=useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
+  const navigate=useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("firstName", data.firstName);
-      formData.append("lastName", data.lastName);
-      formData.append("email", data.email);
-      formData.append("password", data.password);
-      formData.append("role", data.role);
-      formData.append("image", data.image);
-      const url = "http://localhost:8080/api/user/signin";
-      const { status} = await axios.post(url, formData);
-      if (status==200) {
-        navigate("/login");
-      }
+
+      formData.append("email",email);
+      formData.append("firstName",firstName);
+      formData.append("lastName",lastName);
+      formData.append("password",password);
+      formData.append("role", "student");
+      formData.append("imageUrl",image);
+      const res = await axios.post("http://127.0.0.1:3000/api/users/signup",formData);
+		  if (res.status == 201) {
+        console.log("test")
+			  navigate("/login");
+		  }
     } catch (error) {
       console.log(error)
     }
@@ -48,7 +38,7 @@ const Signup = () => {
     reader.onload = () =>{
       if(reader.readyState === 2){
         setprof(reader.result)
-        
+        console.log(reader.result)
       }
     }
     reader.readAsDataURL(e.target.files[0])
@@ -57,16 +47,14 @@ const Signup = () => {
   return (
     <div className="center">
     <div className="signup_container">
-          
-
       <div className={styles.signup_form_container}>
         <div className={styles.left}>
           <h1>Welcome Back</h1>
-          <Link to="/login">
-            <button type="button" className={styles.white_btn}>
+          
+            <button onClick={()=>navigate('/login')} type="button" className={styles.white_btn}>
               Sign in
             </button>
-          </Link>
+         
         </div>
         <div className="right">
           <form className={styles.form_container} onSubmit={handleSubmit}>
@@ -76,13 +64,13 @@ const Signup = () => {
 						<img src={profileImg} alt="" id="img" className="img" />
 					</div>
             
-					<input type="file" accept="image/*"  onChange={e=>imageHandler(e)} />
+					<input type="file" accept="image/*"  onChange={e=>{imageHandler(e);setImage(e.target.files[0])}} />
             <input
               type="text"
               placeholder="First Name"
               name="firstName"
-              onChange={handleChange}
-              value={data.firstName}
+              onChange={(e)=>setfirst(e.target.value)}
+              value={firstName}
               required
               className={styles.input}
             />
@@ -90,8 +78,8 @@ const Signup = () => {
               type="text"
               placeholder="Last Name"
               name="lastName"
-              onChange={handleChange}
-              value={data.lastName}
+              onChange={e=>setlast(e.target.value)}
+              value={lastName}
               required
               className={styles.input}
             />
@@ -99,8 +87,8 @@ const Signup = () => {
               type="email"
               placeholder="Email"
               name="email"
-              onChange={handleChange}
-              value={data.email}
+              onChange={e=>setEmail(e.target.value)}
+              value={email}
               required
               className={styles.input}
             />
@@ -108,12 +96,12 @@ const Signup = () => {
               type="password"
               placeholder="Password"
               name="password"
-              onChange={handleChange}
-              value={data.password}
+              onChange={e=>setPassword(e.target.value)}
+              value={password}
               required
               className={styles.input}
             />
-            {error && <div className={styles.error_msg}>{error}</div>}
+            
             <button type="submit" className={styles.green_btn}>
               Sign Up
             </button>
