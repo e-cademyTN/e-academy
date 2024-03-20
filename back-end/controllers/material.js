@@ -22,9 +22,10 @@ module.exports = {
  //admin
   createMaterial: async (req, res) => {
     try {
+      const { id } = req.params;
       const {name, description,price,date,link} = req.body;
       const result = await Material.create({ name, description,price,date,link });
-      res.status(201).json(result);
+      res.status(201).json(req.body);
     } catch (err) {
       res.status(404).send(err);
     }
@@ -33,18 +34,13 @@ module.exports = {
    //admin
   updateMaterial: async (req, res) => {
     try {
-      const {name,description,price,date,link} = req.body;
+      const { id } = req.params
       const result = await Material.update(
-        {
-          name,
-          description,
-          price,
-          date,
-          link
-        },
+       req.body,
         { where: { id: id } }
       );
-      res.status(202).json(result);
+  
+      res.status(202).json(req.body);
     } catch (err) {
       res.status(404).send(err);
     }
