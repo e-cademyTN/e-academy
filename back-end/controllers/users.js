@@ -34,7 +34,7 @@ const signup = async (req, res) => {
   
         imageStream.pipe(upload_stream);
       });
- 
+
     console.log("log",cloudinaryResult.secure_url);
     
     const user = await User.create({
@@ -103,6 +103,41 @@ const getAllUsers = async (req, res) => {
         res.status(500).send(error);
     }
 };
-const updateUser = async (req, res) => {};
+const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params; 
+        const { firstName, lastName, imageUrl } = req.body; 
+        let user = await User.findByPk(id);
+        if (!user) {
+            return res.status(404).json({ error: "there's no user" });
+        }
+        if (firstName) {
+            user.firstName = firstName;
+        }
+        if (lastName) {
+            user.lastName = lastName;
+        }
+        if (imageUrl) {
+                    const imageBuffer = req.files[0].buffer;
+                     const imageStream = Readable.from(imageBuffer);
+                         const cloudinaryResult = await new Promise((resolve, reject) => {
+                         const upload_stream = cloudinary.uploader.upload_stream(
+                              { resource_type: "image" },
+                               (error, result) => {
+                                if (error) reject(error);
+                                else resolve(result);
+                    }
+                );
+                imageStream.pipe(upload_stream);
+            });
+            user.imageUrl = cloudinaryResult.secure_url;
+        }
+        await user.save();
+        res.status(200).json({ message: "updated ...!", user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
+};
 
 module.exports = { signin, signup, getAllUsers, updateUser };
