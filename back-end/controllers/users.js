@@ -94,7 +94,15 @@ const signin = async (req, res) => {
     res.status(500).send(error);
   }
 };
-const getAllUsers = async (req, res) => {};
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.findAll();
+        res.status(200).json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
+};
 const updateUser = async (req, res) => {};
 
 module.exports = { signin, signup, getAllUsers, updateUser };
