@@ -1,11 +1,12 @@
 const bcrypt = require("bcrypt")
 const {User} = require("../model")
 const jwt = require("jsonwebtoken");
-require('dotenv').config()
+
+const cloudinary = require("../utils/cloudinary");
 
    const signup= async (req, res) => {
         // getting the data
-        const {email,firstName,lastName,password,role}=req.body
+        const {email,firstName,lastName,imageUrl,password,role}=req.body
         try {
             //checking if the email is already in use
             const checkemail=await User.findOne({where:{email:email}})
@@ -16,9 +17,13 @@ require('dotenv').config()
             //hashing the password
             let hashedpass=await bcrypt.hash(password,10)
             //creating the new user
+            const result = await cloudinary.uploader.upload(imageUrl);
+            console.log("result : " ,result[0])
+           
+
             const user = await User.create({
                 firstName:firstName,
-                imageUrl:req.files[0].originalname,
+                imageUrl:result.secure_url,
                 lastName:lastName,
                 email: email,
                 password: hashedpass,
