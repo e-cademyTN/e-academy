@@ -5,9 +5,10 @@ const {getAllMaterial,getOne,createMaterial,updateMaterial,deleteMaterial} = req
 const isAdminAuthenticated = require('../middlewares/isAdminAuthenticated')
 const isUserAuthenticated = require('../middlewares/isUserAuthenticated')
 
-router.get("/getAll",)
-router.post("/add",)
-router.put("/update/:id",)
-router.delete("/delete/:id",)
+router.get("/getAll",getAllMaterial)
+router.get("/getOne/:id",getOne)
+router.post("/add",createMaterial)
+router.put("/update/:id",updateMaterial)
+router.delete("/delete/:id",deleteMaterial)
 
 module.exports = router    
