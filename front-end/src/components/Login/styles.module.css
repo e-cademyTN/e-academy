@@ -1,102 +1,111 @@
+/* Overall Login Container */
 .login_container {
 	margin: 0;
-	width: 200%;
+	width: 1464px;
 	min-height: 100vh;
-	background-color: #f5f5f5;
+	background-color: #f0f0f0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
+/* Login Form Container */
 .login_form_container {
-	margin-left: 10;
-	width: 200%;
-	height: 550px;
+	margin: 100px;
+	width: 80%;
+	max-width: 900px;
+	height: 500px;
 	display: flex;
 	border-radius: 10px;
-	box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
-		0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
 }
 
+/* Left Section */
 .left {
-	flex: 2;
-	/* max-width: 45%; */
+	flex: 1;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: white;
+	background-color: #ffffff;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 }
 
+/* Form Container */
 .form_container {
+	width: 80%;
+	max-width: 400px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
 .form_container h1 {
-	font-size: 40px;
-	margin-top: 0;
+	font-size: 32px;
+	margin-top: 20px;
+	color: #333333;
 }
 
 .input {
 	outline: none;
 	border: none;
-	width: 370px;
+	width: 100%;
 	padding: 15px;
-	border-radius: 10px;
-	background-color: #edf5f3;
-	margin: 5px 0;
-	font-size: 14px;
+	border-radius: 8px;
+	background-color: #f5f5f5;
+	margin: 10px 0;
+	font-size: 16px;
+	color: #555555;
 }
 
 .error_msg {
-	width: 370px;
+	width: 100%;
 	padding: 15px;
-	margin: 5px 0;
-	font-size: 14px;
+	margin: 10px 0;
+	font-size: 16px;
 	background-color: #f34646;
 	color: white;
-	border-radius: 5px;
+	border-radius: 8px;
 	text-align: center;
 }
 
+/* Right Section */
 .right {
 	flex: 1;
-	/* max-width: 65%; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: #c7e618;
+	background-color: #4d8af0;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
 
 .right h1 {
-	margin-top: 0;
+	margin-top: 20px;
 	color: white;
-	font-size: 40px;
-	align-self: center;
+	font-size: 32px;
 }
 
+/* Buttons */
 .white_btn,
-.green_btn {
+.blue_btn {
 	border: none;
 	outline: none;
 	padding: 12px 0;
-	background-color: white;
+	background-color: #4d8af0;
 	border-radius: 20px;
 	width: 180px;
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 16px;
 	cursor: pointer;
+	color: white;
+	text-align: center;
+	text-decoration: none;
 }
 
-.green_btn {
-	background-color: #c7e618;
-	color: white;
-	margin: 10px;
+.white_btn:hover,
+.blue_btn:hover {
+	background-color: #357ae8;
 }
