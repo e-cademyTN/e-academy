@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {getAllMaterial,getOne,createMaterial,updateMaterial,deleteMaterial} = require('../controllers/material.js')
 
-const isAdminAuthenticated = require('../middlewares/isAdminAuthenticated')
-const isUserAuthenticated = require('../middlewares/isUserAuthenticated')
+const isAdminAuthenticated = require('../middlewares/isAdminAuthenticated.js')
+const isUserAuthenticated = require('../middlewares/isUserAuthenticated.js')
 
 router.get("/getAll",getAllMaterial)
 router.get("/getOne/:id",getOne)
