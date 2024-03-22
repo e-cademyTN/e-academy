@@ -1,9 +1,9 @@
 const bcrypt = require("bcrypt");
 const { User } = require("../model");
 const jwt = require("jsonwebtoken");
-const { Readable } = require("stream");
 
-const cloudinary = require("../utils/cloudinary");
+const { upload } = require("../helper/helperFunction.js");
+
 
 const signup = async (req, res) => {
   // getting the data
@@ -21,25 +21,12 @@ const signup = async (req, res) => {
     //creating the new user
     const imageBuffer = req.files[0].buffer;
     console.log("imageBuffer :", imageBuffer)
-    const imageStream = Readable.from(imageBuffer);
-
-    const cloudinaryResult = await new Promise((resolve, reject) => {
-        const upload_stream = cloudinary.uploader.upload_stream(
-          { resource_type: "image" },
-          (error, result) => {
-            if (error) reject(error);
-            else resolve(result);
-          }
-        );
   
-        imageStream.pipe(upload_stream);
-      });
- 
-    console.log("log",cloudinaryResult.secure_url);
+    const imageUrl = await upload(imageBuffer);
     
     const user = await User.create({
       firstName: firstName,
-      imageUrl: cloudinaryResult.secure_url,
+      imageUrl: imageUrl,
       lastName: lastName,
       email: email,
       password: hashedpass,
@@ -103,6 +90,31 @@ const getAllUsers = async (req, res) => {
         res.status(500).send(error);
     }
 };
-const updateUser = async (req, res) => {};
+const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params; 
+        const { firstName, lastName, imageUrl } = req.body; 
+        let user = await User.findByPk(id);
+        if (!user) {
+            return res.status(404).json({ error: "there's no user" });
+        }
+        if (firstName) {
+            user.firstName = firstName;
+        }
+        if (lastName) {
+            user.lastName = lastName;
+        }
+        if (imageUrl) {
+          const imageBuffer = req.files[0].buffer
+          const imageUrl = await upload(imageBuffer)
+          user.imageUrl = imageUrl
+        }
+        await user.save();
+        res.status(200).json({ message: "updated ...!", user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
+};
 
 module.exports = { signin, signup, getAllUsers, updateUser };
