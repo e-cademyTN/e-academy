@@ -69,13 +69,14 @@ const signin = async (req, res) => {
         expiresIn: "1d",
       }
     );
-    let student = {
+    let logeduser = {
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       imageUrl: user.imageUrl,
+      role:user.role
     };
-    res.status(200).json({ student, token, message: "succeeded" });
+    res.status(200).json({ logeduser, token, message: "succeeded" });
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
