@@ -6,13 +6,11 @@ import axios from 'axios'
 
 export const Accueil = () => {
     const [data, setData] = useState([])
-console.log(data)
     const getAllMatiriels = async () => {
         try {
             const { data } = await axios.get('http://localhost:3000/api/material/getAll')
             setData(data)
         } catch (error) {
-            console.log(error)
         }
 
     }
@@ -22,20 +20,34 @@ console.log(data)
     return (
         <div className='Home' >
             <NavBar />
-            {data.map((ele) => {
-                return(
-                    <ul class="tilesWrap">
-                    <li> 
-                      <h3>{ele.name}</h3>
-                      <p>
-                        {ele.description}
-                        {ele.date}
-                      </p>
-                      <button>Join</button>
-                    </li>
-                   
-                  </ul>
-            )})}
+            <h1 style={{ "textAlign": "center" }}>Welcome</h1>
+            <div className='container' >
+                {data.map((ele) => {
+                    return (
+                        <div key={ele.id} className="plan">
+                            <div className="inner">
+                                <span className="pricing">
+                                    <span>
+                                        <small>{ele.price}$</small>
+                                    </span>
+                                </span>
+                                <p className="title">{ele.name}</p>
+
+                                <ul className="features">
+                                    <li>
+                                        {ele.date}
+                                    </li>
+                                </ul>
+                                <div className="action">
+                                    <button onClick={() => console.log('aa')} className="button">
+                                        Join
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
 
     )
