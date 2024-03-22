@@ -1,0 +1,69 @@
+.Home {
+    margin-bottom: 100%;
+}
+
+.navbar {
+    position: fixed;
+    background-color: #4d8af0;
+    border-bottom: 1px solid #ddd;
+    top: 0;
+    width: 200%;
+}
+
+.navbar .container {
+  
+    display: flex;
+    height: 90px;
+    width: 1300px;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    margin-right: 2rem;
+}
+
+.navbar-item {
+
+    padding: 7rem;
+    color: #faf9f9;
+}
+
+.navbar-menu {
+    
+    margin-left: 70px;
+    flex-grow: 1;
+}
+
+.navbar-end {
+    margin-left: 90px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+/* Media query for responsive design */
+@media screen and (max-width: 768px) {
+    .navbar-menu {
+        display: none;
+    }
+
+    .navbar-burger {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .navbar-burger span {
+        width: 25px;
+        height: 3px;
+
+        margin: 3px;
+        display: block;
+    }
+
+    .navbar-menu.is-active {
+        display: block;
+    }
+}
