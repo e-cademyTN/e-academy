@@ -3,17 +3,20 @@ import { NavBar } from './NavBar.jsx'
 import './navBar.css'
 import './Accueil.css'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
-export const Accueil = () => {
+export const Accueil = ({setmat}) => {
     const [data, setData] = useState([])
+    const navigate = useNavigate()
     const getAllMatiriels = async () => {
         try {
             const { data } = await axios.get('http://localhost:3000/api/material/getAll')
             setData(data)
         } catch (error) {
+            console.log(error)
         }
-
     }
+
     useEffect(() => {
         getAllMatiriels()
     }, [])
@@ -21,10 +24,12 @@ export const Accueil = () => {
         <div className='Home' >
             <NavBar />
             <h1 style={{ "textAlign": "center" }}>Welcome</h1>
-            <div className='container' >
+            <div className='container'  >
                 {data.map((ele) => {
                     return (
-                        <div key={ele.id} className="plan">
+                        <div onClick={()=>{setmat(ele)
+                        navigate('/matirialDetail')
+                        }} key={ele.id} className="plan">
                             <div className="inner">
                                 <span className="pricing">
                                     <span>
