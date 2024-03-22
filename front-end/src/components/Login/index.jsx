@@ -46,7 +46,7 @@ const Login = () => {
 							className={styles.input}
 						/>
 						
-						<button type="submit" onClick={()=>{handleSubmit()}} className={styles.green_btn}>
+						<button type="submit"  className={styles.green_btn}>
 							Sing In
 						</button>
 					</form>
