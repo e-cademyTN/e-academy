@@ -7,7 +7,7 @@
     border-bottom: 1px solid #ddd;
 }
 
-.navbar .container {
+.navbar .container-nav {
     display: flex;
     height: 90px;
     width: 1300px;
