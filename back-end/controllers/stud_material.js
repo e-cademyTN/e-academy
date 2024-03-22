@@ -21,7 +21,7 @@ module.exports = {
   addMaterialUser : async (req, res) => {
   try {
      const {userId,materialId} = req.body
-     const materials = await Material.findByPk(materialId)
+     const material = await Material.findByPk(materialId)
     
       material.addUser(userId);
     res.status(200).send("User Added");
