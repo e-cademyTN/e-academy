@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate} from "react-router-dom";
-import styles from "./styles.module.css";
+import  styles from "../../styles.module.css";
+
 
 const Login = () => {
 	const navigate=useNavigate()
@@ -10,12 +11,16 @@ const Login = () => {
 	const handleSubmit = async () => {
 		try {
 			const info={email,password}
-			
 		  const {status,data} = await axios.post("http://127.0.0.1:3000/api/users/signin",info);
 		  if (status == 200) {
+
+			console.log(JSON.stringify(data.logeduser))
+
 			const id = data.logeduser.id
  			 localStorage.setItem('idUser', id)
+
 			localStorage.setItem("token",data.token);
+			localStorage.setItem("user",JSON.stringify(data.logeduser));
 			if(data.logeduser.role=='student')
 				navigate("/userHome");
 			else{navigate("/adminHome")}
@@ -26,10 +31,10 @@ const Login = () => {
 	  };
 	
 	return (
-		<div className={styles.login_container}>
-			<div className={styles.login_form_container}>
+		<div className={styles.container}>
+			<div className={styles.form_container}>
 				<div className={styles.left}>
-					<form className={styles.form_container} onSubmit={handleSubmit}>
+					<form className={styles.uform_container} onSubmit={handleSubmit}>
 						<h1>Login to Your Account</h1>
 						<input
 							type="email"
@@ -50,7 +55,7 @@ const Login = () => {
 							className={styles.input}
 						/>
 						
-						<button type="submit"  className={styles.green_btn}>
+						<button type="submit"  className={styles.blue_btn}>
 							Sing In
 						</button>
 					</form>
