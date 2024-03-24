@@ -1,9 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../user/EditProfile.css";
 import { TbPhotoEdit } from "react-icons/tb";
+import axios from "axios";
+
 
 export const EditProfile = () => {
+  const [user,setUser] = useState([])
+  const [firstName, setFirst] = useState("");
+  const [email, setEmail] = useState("");
+  const [lastName, setLast] = useState("");
+  const [password, setPassword] = useState("");
+  const [image, setImage] = useState(null);
+  console.log(user)
+
+  const fetchUser = async()=>{
+      try{
+        const id = localStorage.getItem('idUser')
+        const token = localStorage.getItem('token')
+        const {data}= await axios.get(`http://localhost:3000/api/users/getOne/${id}`, 
+        {headers: {
+          Authorization: `Bearer ${token}`
+        }})
+        setUser(data)
+      }
+      catch(err){
+          console.log(err)
+      }
+  }
+
+  useEffect(()=>{
+fetchUser()
+  },[])
+
+  const update = async()=>{
+    try{
+      const id = localStorage.getItem('idUser')
+        const res = await axios.put(`http://localhost:3000/api/users/update/${id}`,{
+
+        })
+    }catch(err){
+console.log(err)
+    }
+  }
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
@@ -16,7 +55,7 @@ export const EditProfile = () => {
                     <img
                       className="rounded-circle mt-5 profile-img"
                       width="150px"
-                      src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                      src={user.imageUrl}
                       id="profile-img"
                       alt="Profile"
                     />
@@ -31,8 +70,8 @@ export const EditProfile = () => {
                       </label>
                     </div>
                   </div>
-                  <span className="font-weight-bold">FullName</span>
-                  <span className="text-black-50">edogaru@mail.com.my</span>
+                  <span className="font-weight-bold">{user.firstName + ' '+ user.lastName}</span>
+                  <span className="text-black-50">{user.email}</span>
                   <span></span>
                 </div>
               </div>
@@ -47,8 +86,9 @@ export const EditProfile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="first name"
+                        placeholder={user.firstName}
                         value=""
+
                       />
                     </div>
                     <div className="col-md-6">
@@ -57,7 +97,7 @@ export const EditProfile = () => {
                         type="text"
                         className="form-control"
                         value=""
-                        placeholder="surname"
+                        placeholder={user.lastName}
                       />
                     </div>
                   </div>

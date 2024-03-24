@@ -13,6 +13,8 @@ const Login = () => {
 			
 		  const {status,data} = await axios.post("http://127.0.0.1:3000/api/users/signin",info);
 		  if (status == 200) {
+			const id = data.logeduser.id
+ 			 localStorage.setItem('idUser', id)
 			localStorage.setItem("token",data.token);
 			if(data.logeduser.role=='student')
 				navigate("/userHome");
