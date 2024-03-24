@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TbPhotoEdit } from "react-icons/tb";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../user/EditProfile.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import "./EditProfile.css";
 
 export const EditProfile = () => {
  const [email,setEmail] = useState('')
