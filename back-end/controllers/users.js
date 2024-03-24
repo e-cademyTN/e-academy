@@ -117,11 +117,15 @@ const updateUser = async (req, res) => {
       if (lastName) {
           user.lastName = lastName;
       }
+      const x =  []
       if (imageUrl) {
-          const imageBuffer = req.files[0].buffer
-          const imageUrl = await upload(imageBuffer)
-          user.imageUrl = imageUrl
+        const imageBuffer = req.files[0].buffer
+        console.log("buffer: ",req.files[0].buffer)
+        const imageUrl = await upload(imageBuffer)
+        x.push(imageUrl)
+        user.imageUrl = imageUrl
       }
+      console.log(x)
       if (currentPassword && newPassword) {
           const passwordMatch = await bcrypt.compare(currentPassword, user.password);
           if (!passwordMatch) {

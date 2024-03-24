@@ -1,52 +1,74 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { TbPhotoEdit } from "react-icons/tb";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../user/EditProfile.css";
-import { TbPhotoEdit } from "react-icons/tb";
-import axios from "axios";
-
 
 export const EditProfile = () => {
-  const [user,setUser] = useState([])
-  const [firstName, setFirst] = useState("");
-  const [email, setEmail] = useState("");
-  const [lastName, setLast] = useState("");
-  const [password, setPassword] = useState("");
+ const [email,setEmail] = useState('')
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
   const [image, setImage] = useState(null);
-  console.log(user)
 
-  const fetchUser = async()=>{
-      try{
-        const id = localStorage.getItem('idUser')
-        const token = localStorage.getItem('token')
-        const {data}= await axios.get(`http://localhost:3000/api/users/getOne/${id}`, 
-        {headers: {
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const id = localStorage.getItem("idUser");
+      const token = localStorage.getItem("token");
+      const { data } = await axios.get(`http://localhost:3000/api/users/getOne/${id}`, {
+        headers: {
           Authorization: `Bearer ${token}`
-        }})
-        setUser(data)
-      }
-      catch(err){
-          console.log(err)
-      }
-  }
-
-  useEffect(()=>{
-fetchUser()
-  },[])
-
-  const update = async()=>{
-    try{
-      const id = localStorage.getItem('idUser')
-        const res = await axios.put(`http://localhost:3000/api/users/update/${id}`,{
-
-        })
-    }catch(err){
-console.log(err)
+        }
+      });
+      setEmail(data.email)
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setImage(data.imageUrl);
+    } catch (err) {
+      console.log("fetcher failed:", err);
     }
-  }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    console.log("file:" ,file)
+    setImagePreview(file);
+  };
+
+  const handleSaveProfile = async () => {
+    try {
+      const id = localStorage.getItem("idUser");
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("currentPassword", currentPassword);
+      formData.append("newPassword", newPassword);
+      formData.append("image", imagePreview);
+      
+      const res = await axios.put(`http://localhost:3000/api/users/update/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data"
+        }
+      });
+      console.log("Update successful:", res.data);
+    } catch (err) {
+      console.log("Update failed:", err);
+    }
+  };
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
-        <div className="col-lg-12"> 
+        <div className="col-lg-12">
           <div className="containerr rounded bg-white mt-9 mb-9">
             <div className="row">
               <div className="col-md-6 border-right">
@@ -55,7 +77,7 @@ console.log(err)
                     <img
                       className="rounded-circle mt-5 profile-img"
                       width="150px"
-                      src={user.imageUrl}
+                      src={imagePreview ? URL.createObjectURL(imagePreview) : image  }
                       id="profile-img"
                       alt="Profile"
                     />
@@ -64,14 +86,14 @@ console.log(err)
                         <input
                           className="inputimg"
                           type="file"
-                          name="picture"
+                          onChange={handleImageChange}
                         />
                         <TbPhotoEdit />
                       </label>
                     </div>
                   </div>
-                  <span className="font-weight-bold">{user.firstName + ' '+ user.lastName}</span>
-                  <span className="text-black-50">{user.email}</span>
+                  <span className="font-weight-bold">{firstName + " " + lastName}</span>
+                  <span className="text-black-50">{email}</span>
                   <span></span>
                 </div>
               </div>
@@ -86,9 +108,9 @@ console.log(err)
                       <input
                         type="text"
                         className="form-control"
-                        placeholder={user.firstName}
-                        value=""
-
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder={firstName}
                       />
                     </div>
                     <div className="col-md-6">
@@ -96,8 +118,9 @@ console.log(err)
                       <input
                         type="text"
                         className="form-control"
-                        value=""
-                        placeholder={user.lastName}
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder={lastName}
                       />
                     </div>
                   </div>
@@ -105,19 +128,21 @@ console.log(err)
                     <div className="col-md-12">
                       <label className="labels">Current Password</label>
                       <input
-                        type="text"
+                        type="password"
                         className="form-control"
-                        placeholder="enter Current Password"
-                        value=""
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        placeholder="Enter Current Password"
                       />
                     </div>
                     <div className="col-md-12">
                       <label className="labels">New Password</label>
                       <input
-                        type="text"
+                        type="password"
                         className="form-control"
-                        placeholder="enter New Password"
-                        value=""
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Enter New Password"
                       />
                     </div>
                   </div>
@@ -126,6 +151,7 @@ console.log(err)
                     <button
                       className="btn btn-primary profile-button"
                       type="button"
+                      onClick={handleSaveProfile}
                     >
                       Save Profile
                     </button>
@@ -139,3 +165,4 @@ console.log(err)
     </div>
   );
 };
+
