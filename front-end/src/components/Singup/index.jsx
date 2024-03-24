@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import  styles from "../../styles.module.css";
 import axios from "axios";
-import styles from "./styles.module.css";
+
+
 
 const Signup = () => {
   const [firstName, setFirst] = useState("");
@@ -41,17 +43,17 @@ const Signup = () => {
   };
 
   return (
-    <div className="center">
-      <div className="signup_container">
-        <div className={styles.signup_form_container}>
-          <div className={styles.left}>
+   
+      <div className={styles.container}>
+        <div className={styles.form_container}>
+          <div className={styles.right}>
             <h1>Welcome Back</h1>
             <button onClick={() => navigate("/login")} type="button" className={styles.white_btn}>
               Sign in
             </button>
           </div>
-          <div className="right">
-            <form className={styles.form_container} onSubmit={handleSubmit}>
+          <div className={styles.left}>
+            <form className={styles.uform_container} onSubmit={handleSubmit}>
               <h1>Create Account</h1>
               <div className="img-holder">
                 <img src={image ? URL.createObjectURL(image) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'} alt="" id="img" className="img" />
@@ -93,14 +95,14 @@ const Signup = () => {
                 required
                 className={styles.input}
               />
-              <button type="submit" className={styles.green_btn}>
+              <button type="submit" className={styles.white_btn}>
                 Sign Up
               </button>
             </form>
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

@@ -1,14 +1,13 @@
 import React ,{useEffect,useState}from 'react'
-import NavBar from '../NavBar'
+import NavBar from '../NavBar.jsx'
 import axios from 'axios'
-import TeacherDet from './TeacherDet'
-
-function Teachers() {
+import UserDet from './UserDet.jsx'
+function Students() {
     const [data, setData] = useState([])
-    const getAllMatiriels = async () => {
+    const getAllStudents = async () => {
         try {
             const token=localStorage.getItem("token")
-            const {data} = await axios.get('http://localhost:3000/api/teacher/getAll',{
+            const {data} = await axios.get('http://localhost:3000/api/users/getAll',{
                 headers: {
                     Authorization: `Bearer ${token}`
                   }
@@ -20,16 +19,16 @@ function Teachers() {
     }
    
     useEffect(() => {
-        getAllMatiriels()
+        getAllStudents()
     }, [])
   return (
+    <div>
+      <NavBar/>
+        <div className='container-user'  >
+    {data.map((user,index) => <UserDet key={user.id} user={user}/>)}
+   </div></div>
 
-    <div><NavBar/>
-     <div className='container-teacher'  >
-    {data.map((teacher) => <TeacherDet key={teacher.id} teacher={teacher}/>)}
-   </div>
-    </div>
   )
 }
 
-export default Teachers
+export default Students
