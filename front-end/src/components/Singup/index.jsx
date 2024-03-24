@@ -9,6 +9,7 @@ const Signup = () => {
   const [lastName, setLast] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null);
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

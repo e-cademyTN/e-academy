@@ -1,13 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { TbPhotoEdit } from "react-icons/tb";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../user/EditProfile.css";
-import { TbPhotoEdit } from "react-icons/tb";
 
 export const EditProfile = () => {
+ const [email,setEmail] = useState('')
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const id = localStorage.getItem("idUser");
+      const token = localStorage.getItem("token");
+      const { data } = await axios.get(`http://localhost:3000/api/users/getOne/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setEmail(data.email)
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setImage(data.imageUrl);
+    } catch (err) {
+      console.log("fetcher failed:", err);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    console.log("file:" ,file)
+    setImagePreview(file);
+  };
+
+  const handleSaveProfile = async () => {
+    try {
+      const id = localStorage.getItem("idUser");
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("currentPassword", currentPassword);
+      formData.append("newPassword", newPassword);
+      formData.append("image", imagePreview);
+      
+      const res = await axios.put(`http://localhost:3000/api/users/update/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data"
+        }
+      });
+      console.log("Update successful:", res.data);
+    } catch (err) {
+      console.log("Update failed:", err);
+    }
+  };
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center">
-        <div className="col-lg-12"> 
+        <div className="col-lg-12">
           <div className="containerr rounded bg-white mt-9 mb-9">
             <div className="row">
               <div className="col-md-6 border-right">
@@ -16,7 +77,7 @@ export const EditProfile = () => {
                     <img
                       className="rounded-circle mt-5 profile-img"
                       width="150px"
-                      src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                      src={imagePreview ? URL.createObjectURL(imagePreview) : image  }
                       id="profile-img"
                       alt="Profile"
                     />
@@ -25,14 +86,14 @@ export const EditProfile = () => {
                         <input
                           className="inputimg"
                           type="file"
-                          name="picture"
+                          onChange={handleImageChange}
                         />
                         <TbPhotoEdit />
                       </label>
                     </div>
                   </div>
-                  <span className="font-weight-bold">FullName</span>
-                  <span className="text-black-50">edogaru@mail.com.my</span>
+                  <span className="font-weight-bold">{firstName + " " + lastName}</span>
+                  <span className="text-black-50">{email}</span>
                   <span></span>
                 </div>
               </div>
@@ -47,8 +108,9 @@ export const EditProfile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="first name"
-                        value=""
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder={firstName}
                       />
                     </div>
                     <div className="col-md-6">
@@ -56,8 +118,9 @@ export const EditProfile = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value=""
-                        placeholder="surname"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder={lastName}
                       />
                     </div>
                   </div>
@@ -65,19 +128,21 @@ export const EditProfile = () => {
                     <div className="col-md-12">
                       <label className="labels">Current Password</label>
                       <input
-                        type="text"
+                        type="password"
                         className="form-control"
-                        placeholder="enter Current Password"
-                        value=""
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        placeholder="Enter Current Password"
                       />
                     </div>
                     <div className="col-md-12">
                       <label className="labels">New Password</label>
                       <input
-                        type="text"
+                        type="password"
                         className="form-control"
-                        placeholder="enter New Password"
-                        value=""
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Enter New Password"
                       />
                     </div>
                   </div>
@@ -86,6 +151,7 @@ export const EditProfile = () => {
                     <button
                       className="btn btn-primary profile-button"
                       type="button"
+                      onClick={handleSaveProfile}
                     >
                       Save Profile
                     </button>
@@ -99,3 +165,4 @@ export const EditProfile = () => {
     </div>
   );
 };
+
