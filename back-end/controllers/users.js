@@ -69,13 +69,14 @@ const signin = async (req, res) => {
         expiresIn: "1d",
       }
     );
-    let student = {
+    let logeduser = {
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       imageUrl: user.imageUrl,
+      role:user.role
     };
-    res.status(200).json({ student, token, message: "succeeded" });
+    res.status(200).json({ logeduser, token, message: "succeeded" });
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
@@ -90,6 +91,17 @@ const getAllUsers = async (req, res) => {
         res.status(500).send(error);
     }
 };
+const getOne = async (req,res)=>{
+  try{
+    const {id} = req.params
+    const user = await User.findOne({ where: { id: id } })
+    console.log(user)
+      res.status(200).send(user)
+    }catch(err){
+res.status(500).send(err)
+    }
+
+}
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params; 
@@ -117,4 +129,4 @@ const updateUser = async (req, res) => {
     }
 };
 
-module.exports = { signin, signup, getAllUsers, updateUser };
+module.exports = { signin, signup, getAllUsers, updateUser ,getOne};

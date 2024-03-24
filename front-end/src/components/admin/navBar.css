@@ -3,11 +3,15 @@
 }
 
 .navbar {
+    position: fixed;
     background-color: #4d8af0;
     border-bottom: 1px solid #ddd;
+    top: 0;
+    width: 200%;
 }
 
-.navbar .container-nav {
+.navbar .container {
+  
     display: flex;
     height: 90px;
     width: 1300px;
@@ -21,15 +25,20 @@
 }
 
 .navbar-item {
+
     padding: 7rem;
     color: #faf9f9;
 }
 
 .navbar-menu {
+    
+    margin-left: 70px;
     flex-grow: 1;
 }
 
 .navbar-end {
+    margin-left: 90px;
+    justify-content: center;
     display: flex;
     align-items: center;
 }

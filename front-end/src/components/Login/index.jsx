@@ -10,11 +10,13 @@ const Login = () => {
 	const handleSubmit = async () => {
 		try {
 			const info={email,password}
-			console.log(info)
-		  const res = await axios.post("http://127.0.0.1:3000/api/users/signin",info);
-		  if (res.status == 200) {
-			localStorage.setItem("token", res.data);
-			navigate("/userHome");
+			
+		  const {status,data} = await axios.post("http://127.0.0.1:3000/api/users/signin",info);
+		  if (status == 200) {
+			localStorage.setItem("token",data.token);
+			if(data.logeduser.role=='student')
+				navigate("/userHome");
+			else{navigate("/adminHome")}
 		  }
 		} catch (error) {
 		  console.error(error);
@@ -46,7 +48,7 @@ const Login = () => {
 							className={styles.input}
 						/>
 						
-						<button type="submit" onClick={()=>{handleSubmit()}} className={styles.green_btn}>
+						<button type="submit"  className={styles.green_btn}>
 							Sing In
 						</button>
 					</form>
@@ -65,3 +67,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
