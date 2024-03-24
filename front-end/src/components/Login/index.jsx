@@ -11,10 +11,14 @@ const Login = () => {
 	const handleSubmit = async () => {
 		try {
 			const info={email,password}
-			
 		  const {status,data} = await axios.post("http://127.0.0.1:3000/api/users/signin",info);
 		  if (status == 200) {
+
 			console.log(JSON.stringify(data.logeduser))
+
+			const id = data.logeduser.id
+ 			 localStorage.setItem('idUser', id)
+
 			localStorage.setItem("token",data.token);
 			localStorage.setItem("user",JSON.stringify(data.logeduser));
 			if(data.logeduser.role=='student')

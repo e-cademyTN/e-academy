@@ -1,25 +1,21 @@
-import React ,{ useEffect,useState}from 'react'
-import NavBar from '../NavBar'
+import React,{useState,useEffect} from 'react'
+import  NavBar  from '../NavBar.jsx'
+import '../../index.css'
 import axios from 'axios'
-import MatDetail from './MatDetail'
-
-
-
+import MatDetail from './MatDetail.jsx'
 function Materials() {
-
-  const [matlength, setmat] = useState(null);
     const [data, setData] = useState([])
+    const [name, setName] = useState("")
+    const [desc, setDesc] = useState("")
+    const [link, setLink] = useState("")
+    const [price, setPrice] = useState(0)
+    const [date, setDate] = useState("")
+
     const getAllMatiriels = async () => {
         try {
-            const token=localStorage.getItem("token")
-            const {data} = await axios.get('http://localhost:3000/api/material/getAll',{
-                headers: {
-                    Authorization: `Bearer ${token}`
-                  }
-            })
-           setData(data);
-           setmat(data.length)
-           console.log(matlength)
+            const { data } = await axios.get('http://localhost:3000/api/material/getAll')
+            setData(data)
+
         } catch (error) {
             console.log(error)
         }
@@ -31,14 +27,10 @@ function Materials() {
     
   return (
     <div>
-        <>
-        <MatContext.Provider value={matlength}>
             <NavBar/>
     <div className='container'  >
     {data.map((mat) => <MatDetail key={mat.id} mat={mat} />)}
    </div>
-    </MatContext.Provider>
-    </>
     </div>)
-}
+} 
 export default Materials

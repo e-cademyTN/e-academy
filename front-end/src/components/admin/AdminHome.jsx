@@ -1,10 +1,7 @@
-import React,{useContext,createContext} from 'react'
+// import React from 'react'
 import NavBar from '../NavBar'
-import MatContext from './Materials'
-export const MatContext=createContext()
 function AdminHome() {
- 
-  const  matlength  = useContext(MatContext);
+
 
  
  
@@ -16,7 +13,7 @@ function AdminHome() {
     <div> 
       <NavBar/>
       <div>
-{matlength}hgfghgfd
+hgfghgfd
       </div>
     </div>
 

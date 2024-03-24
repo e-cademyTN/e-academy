@@ -21,10 +21,10 @@ const Navbar = () => {
 
 
 
-    const logout = () => {
-        localStorage.removeItem('x-token');
-        window.location.reload(false);
-    };
+    // const logout = () => {
+    //     localStorage.removeItem('x-token');
+    //     navigateto('/login')
+    // };
 
     return (
         <div className='navbar'>
