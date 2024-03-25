@@ -7,7 +7,6 @@ import { EditProfile } from "./components/user/EditProfile.jsx";
 import AdminHome from "./components/admin/AdminHome.jsx";
 import Students from "./components/admin/Students.jsx";
 import Materials from "./components/admin/Materials.jsx";
-import Teachers from "./components/admin/Teachers.jsx";
 import UserMaterials from "./components/user/UserMaterials.jsx";
 import CreateMat from "./components/admin/CreateMat.jsx";
 import UpdateMat from "./components/admin/UpdateMat.jsx";
@@ -18,7 +17,6 @@ function App() {
       <Route path="/createMat" element={<CreateMat />} />
       <Route path="/students" element={<Students />} />
       <Route path="/materials" element={<Materials />} />
-      <Route path="/teachers" element={<Teachers />} />
       <Route path="/adminHome" element={<AdminHome />} />
       <Route path="/updateprof" element={<EditProfile />} />
       <Route path="/mymaterial" element={<MyMaterials />} />
