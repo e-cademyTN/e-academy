@@ -1,27 +1,16 @@
 import axios from '../../assets/axiosSingleton.js'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {useNavigate} from 'react-router-dom';
 
-function MatDetailJoin({mat}) {
+function MatDetailJoin({mat,dummy,setD}) {
     const navigateto=useNavigate()
   const user=JSON.parse(localStorage.getItem("user"))
-  const  matUser= async () => {
-    try {
-        const matId=mat.id
-        const userId=user.id
-        console.log(userId,matId);
-        const {data} = await axios.post('http://localhost:3000/api/student/addmaterialuser',{userId:userId,materialId:matId})
-        console.log(data);
-    } catch (error) {
-        console.log(error)
-    }
-}
   const handleDelete= async () => {
     alert('are you sure you want to delete ')
     try {
         const {status} = await axios.delete(`http://localhost:3000/api/material/delete/${mat.id}`)
        if (status==204){
-        navigateto('/materials')
+        setD(!dummy)
        }
     } catch (error) {
         console.log(error)
@@ -39,6 +28,7 @@ try {
     console.log(error)
 }
 }
+
   return (
     <div className="plan">
     <div className="inner">
