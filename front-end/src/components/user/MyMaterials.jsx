@@ -1,53 +1,47 @@
-import React ,{useEffect,useState}from 'react'
-import NavBar from '../NavBar.jsx'
-import axios from '../../assets/axiosSingleton.js'
-
-import MatDetail from '../admin/MatDetail.jsx'
+import React, { useEffect, useState } from 'react';
+import NavBar from '../NavBar.jsx';
+import axios from '../../assets/axiosSingleton.js';
+import MatDetailLeave from '../admin/MatDetailLeave.jsx';
 
 function MyMaterials() {
-    const [data, setData] = useState([])
-    const getMyMaterials = async () => {
-        try {
-            const user=JSON.parse(localStorage.getItem("user"))
+  const [data, setData] = useState([]);
 
-            const { data } = await axios.get(`http://localhost:3000/api/student/getmaterials/${user.id}`)
-            setData(data)
-        } catch (error) {
-            console.log(error)
-        }
+  const getMyMaterials = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const { data } = await axios.get(`http://localhost:3000/api/student/getmaterials/${user.id}`);
+      setData(data);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    
+  useEffect(() => {
+    getMyMaterials();
+  }, []);
 
-    const [mat,setMat] = useState({})
-    const delmat = async ()=> {
-        try {
-            const user=JSON.parse(localStorage.getItem("user"))
-            const userId =user.id
-            const materialId = mat.id
-            console.log(userId)
-            const res= await axios.put(`http://localhost:3000/api/student/delmaterialuser`, {userId:userId,materialId:materialId})
-            console.log(res);
-            getMyMaterials()
-        } catch (error) {
-            console.log(error)
-        }
-    }   
-    useEffect(() => {
-        getMyMaterials()
-       
-    }, [])
+  const delmat = async (material) => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const res = await axios.put(`http://localhost:3000/api/student/delmaterialuser`, { userId: user.id, materialId: material.id });
+      getMyMaterials()
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div> <NavBar/> 
-    <div className='container'  > 
-    {data.map((mat) =>  <div key={mat.id} >
-    <button onClick={()=>{setMat(mat);delmat()}}>leave material</button>
-    <MatDetail key={mat.id} mat={mat} /></div>)}
-    
-   </div>
-
+    <div>
+      <NavBar />
+      <div className='container'>
+        {data.map((mat) => (
+          
+            <MatDetailLeave key={mat.id} material={mat} handledel={delmat} />
+         
+        ))}
       </div>
-  )
+    </div>
+  );
 }
 
-export default MyMaterials
+export default MyMaterials;

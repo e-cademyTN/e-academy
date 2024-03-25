@@ -6,6 +6,8 @@ import MatDetail from './MatDetail.jsx'
 import { useNavigate } from 'react-router'
 function Materials() {
     const [data, setData] = useState([])
+    const [dummy, setD] = useState(false)
+
 const navigate=useNavigate()
     const getAllMatiriels = async () => {
         try {
@@ -19,17 +21,15 @@ const navigate=useNavigate()
    
     useEffect(() => {
         getAllMatiriels()
-    }, [])
+    }, [dummy])
     
   return (
     <div>
             <NavBar/>
-        
-        <button className='btn' onClick={()=>{navigate("/createMat")}} >Add Material</button>
-      
-    <div className='container'  >
-    {data.map((mat) => <MatDetail key={mat.id} mat={mat} />)}
-   </div>
+             <button className='btn' onClick={()=>{navigate("/createMat")}} >Add Material</button>
+        <div className='container'  >
+         {data.map((mat) => <MatDetail key={mat.id} mat={mat} dummy={dummy} setD={setD} />)}
+         </div>
     </div>)
 } 
 export default Materials
