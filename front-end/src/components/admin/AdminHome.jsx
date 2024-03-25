@@ -6,7 +6,7 @@ function AdminHome() {
     <div> 
       <NavBar/>
       <div>
-Welcome
+<h1>Welcome</h1>
       </div>
     </div>
 
