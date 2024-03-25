@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from '../../assets/axiosSingleton.js'
 
 import "./EditProfile.css";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../NavBar.jsx";
 
 export const EditProfile = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +13,7 @@ export const EditProfile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [image, setImage] = useState(null);
+  const navigate=useNavigate()
 
   useEffect(() => {
     fetchUser();
@@ -47,6 +50,13 @@ export const EditProfile = () => {
       formData.append("image", imagePreview);
 
       const res = await axios.put(`http://localhost:3000/api/users/update/${id}`, formData);
+      
+      console.log(res.data)
+      if(res.data.user.role=='student')
+				navigate("/userHome");
+			else{navigate("/adminHome")}
+     
+
       console.log("Update successful:", res.data);
     } catch (err) {
       console.log("Update failed:", err);
@@ -54,6 +64,8 @@ export const EditProfile = () => {
   };
 
   return (
+    <div>
+      <Navbar/>
     <div className="edit-profile-container">
       <div className="profile-header">
         <div className="profile-picture">
@@ -135,6 +147,7 @@ export const EditProfile = () => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

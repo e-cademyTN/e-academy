@@ -58,7 +58,7 @@ try {
                         <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
                     </svg>
                 </span>
-                <span><strong>20</strong> {mat.date}</span>
+                <span><strong> {mat.date}</strong></span>
             </li>
             <li>
                 <span className="icon">
@@ -67,12 +67,12 @@ try {
                         <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"></path>
                     </svg>
                 </span>
-                <span>Plan <strong>{mat.link}</strong></span>
+                <span><strong>{mat.link}</strong></span>
             </li>
         </ul>
        {user.role==='admin'?<div>
        <div className="action">
-        <a className="button" onClick={()=>{navigateto('/updatemat' , {state :mat})}}>
+        <a className="button" onClick={()=>{navigateto('/updatemat' , {state :mat}, {state: mat})}}>
             Update
         </a>
         </div>

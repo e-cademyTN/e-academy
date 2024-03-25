@@ -1,7 +1,8 @@
 import React ,{useEffect,useState}from 'react'
-import NavBar from '../NavBar'
+import NavBar from '../NavBar.jsx'
 import axios from '../../assets/axiosSingleton.js'
-import MatDetail from '../admin/MatDetail'
+
+import MatDetail from '../admin/MatDetail.jsx'
 
 function MyMaterials() {
     const [data, setData] = useState([])
