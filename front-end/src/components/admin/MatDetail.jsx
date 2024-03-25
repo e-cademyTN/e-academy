@@ -72,7 +72,7 @@ try {
         </ul>
        {user.role==='admin'?<div>
        <div className="action">
-        <a className="button" onClick={()=>{navigateto('/updateMat')}}>
+        <a className="button" onClick={()=>{navigateto('/updatemat' , {state :mat})}}>
             Update
         </a>
         </div>

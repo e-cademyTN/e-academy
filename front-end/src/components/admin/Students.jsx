@@ -22,7 +22,7 @@ function Students() {
     <div>
     <NavBar/>
       <div className='container-user'  >
-  {data.map((user,index) => <UserDet key={user.id} user={user} setSelecteduser ={setSelecteduser}/>)}
+  {data.map((user,index) => <UserDet key={user.id} user={user} />)}
  </div></div>
 
   )
