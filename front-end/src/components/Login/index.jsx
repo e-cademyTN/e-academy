@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from '../../assets/axiosSingleton.js'
+
 import { useNavigate} from "react-router-dom";
 import  styles from "../../styles.module.css";
 
@@ -17,8 +18,7 @@ const Login = () => {
 			console.log(JSON.stringify(data.logeduser))
 
 			const id = data.logeduser.id
- 			 localStorage.setItem('idUser', id)
-
+ 			localStorage.setItem('idUser', id)
 			localStorage.setItem("token",data.token);
 			localStorage.setItem("user",JSON.stringify(data.logeduser));
 			if(data.logeduser.role=='student')

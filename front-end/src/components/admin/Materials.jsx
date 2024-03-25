@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import  NavBar  from '../NavBar.jsx'
 import '../../index.css'
-import axios from 'axios'
+import axios from '../../assets/axiosSingleton.js'
 import MatDetail from './MatDetail.jsx'
 import { useNavigate } from 'react-router'
 function Materials() {

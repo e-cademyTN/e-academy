@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import  styles from "../../styles.module.css";
-import axios from "axios";
+import axios from '../../assets/axiosSingleton.js'
+
 
 
 
