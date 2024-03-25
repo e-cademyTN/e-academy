@@ -2,18 +2,11 @@ import React from 'react'
 import NavBar from '../NavBar'
 function AdminHome() {
 
-
- 
- 
- 
- 
- 
- 
   return (
     <div> 
       <NavBar/>
       <div>
-hgfghgfd
+<h1>Welcome</h1>
       </div>
     </div>
 
