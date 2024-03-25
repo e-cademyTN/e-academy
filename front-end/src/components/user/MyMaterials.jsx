@@ -35,7 +35,7 @@ function MyMaterials() {
     useEffect(() => {
         getMyMaterials()
        
-    }, [app])
+    }, [])
   return (
     <div> <NavBar/> 
     <div className='container'  > 
