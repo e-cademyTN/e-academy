@@ -1,19 +1,25 @@
-import axios from 'axios'
-// import React from 'react'
+import axios from '../../assets/axiosSingleton.js'
+import React from 'react'
 import {useNavigate} from 'react-router-dom';
 
 function MatDetail({mat}) {
     const navigateto=useNavigate()
-  const token=localStorage.getItem("token")
   const user=JSON.parse(localStorage.getItem("user"))
+  const  matUser= async () => {
+    try {
+        const matId=mat.id
+        const userId=user.id
+        console.log(userId,matId);
+        const {data} = await axios.post('http://localhost:3000/api/student/addmaterialuser',{userId:userId,materialId:matId})
+        console.log(data);
+    } catch (error) {
+        console.log(error)
+    }
+}
   const handleDelete= async () => {
     alert('are you sure you want to delete ')
     try {
-        const {status} = await axios.delete(`http://localhost:3000/api/material/delete/${mat.id}`,{
-            headers: {
-                Authorization: `Bearer ${token}`
-              }
-        })
+        const {status} = await axios.delete(`http://localhost:3000/api/material/delete/${mat.id}`)
        if (status==204){
         navigateto('/materials')
        }
@@ -62,7 +68,7 @@ function MatDetail({mat}) {
             Delete
         </a>
         </div></div>:<div className="action">
-        <a className="button"  onClick={()=>{}}>
+        <a className="button"  onClick={()=>{matUser()}}>
             Join
         </a>
         </div>}
