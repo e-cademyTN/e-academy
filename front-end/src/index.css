@@ -1,13 +1,25 @@
-.navbar{
+.btn {
+  background-color: #f6f6f8;
+  border-radius: 6px;
+  color: #428ed4;
+  font-weight: 500;
+  font-size: 1.125rem;
+  text-align: center;
+  padding: 0.625em 0.75em;
+  text-decoration: none;
+  margin-left: 50%;
+}
+
+.navbar {
   width: auto;
-  height:75px;    
+  height: 75px;
   background-color: #357ae8;
   display: flex;
   justify-content: start;
   align-items: center;
   margin: 0;
   padding: 0 4px;
-  color: white ;
+  color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -73,6 +85,7 @@
   opacity: 1;
   transform: scale(1);
 }
+
 /* materials */
 .plan {
   border-radius: 16px;
@@ -123,11 +136,11 @@
   color: #425675;
 }
 
-.plan .title + * {
+.plan .title+* {
   margin-top: 0.75rem;
 }
 
-.plan .info + * {
+.plan .info+* {
   margin-top: 1rem;
 }
 
@@ -142,7 +155,7 @@
   gap: 0.5rem;
 }
 
-.plan .features li + * {
+.plan .features li+* {
   margin-top: 0.75rem;
 }
 
@@ -162,7 +175,7 @@
   height: 14px;
 }
 
-.plan .features + * {
+.plan .features+* {
   margin-top: 1.25rem;
 }
 
@@ -188,16 +201,19 @@
   text-decoration: none;
 }
 
-.plan .button:hover, .plan .button:focus {
+.plan .button:hover,
+.plan .button:focus {
   background-color: #4133B7;
 }
-.container{
+
+.container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 50px;
   padding-bottom: 10px;
 }
+
 /* user detail */
 .card {
   margin: 15px;
@@ -246,8 +262,8 @@
 
 .card__title {
   font-size: 28px;
-	margin: 10px;
-	color: #333333;
+  margin: 10px;
+  color: #333333;
 }
 
 .card:hover svg {
@@ -260,41 +276,46 @@
   color: #000000;
   line-height: 1.4;
 }
-.container-user{
+
+.container-user {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 50px;
   padding-bottom: 10px;
 }
-.white_btn,.blue_btn {
-	border: none;
-	outline: none;
-	padding: 12px 0;
-	background-color: #7aaddb;
-	border-radius: 20px;
-	width: 180px;
-	font-weight: bold;
-	font-size: 16px;
-	cursor: pointer;
-	color: white;
-	text-align: center;
-	text-decoration: none;
+
+.white_btn,
+.blue_btn {
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  background-color: #7aaddb;
+  border-radius: 20px;
+  width: 180px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  text-decoration: none;
 }
 
- .white_btn:hover,.blue_btn:hover {
-	background-color: gray;
-  
-  
+.white_btn:hover,
+.blue_btn:hover {
+  background-color: gray;
+
+
 }
 
- .card__avatar {
+.card__avatar {
   cursor: pointer;
   margin-left: 20px;
   width: 90px;
   height: 90px;
   object-fit: cover;
 }
+
 /* teacher */
 .card-client {
   margin: 10px;
@@ -350,7 +371,7 @@
 }
 
 
-.container-teacher{
+.container-teacher {
   cursor: pointer;
   display: flex;
   flex-wrap: wrap;

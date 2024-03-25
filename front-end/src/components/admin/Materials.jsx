@@ -3,14 +3,10 @@ import  NavBar  from '../NavBar.jsx'
 import '../../index.css'
 import axios from 'axios'
 import MatDetail from './MatDetail.jsx'
+import { useNavigate } from 'react-router'
 function Materials() {
     const [data, setData] = useState([])
-    const [name, setName] = useState("")
-    const [desc, setDesc] = useState("")
-    const [link, setLink] = useState("")
-    const [price, setPrice] = useState(0)
-    const [date, setDate] = useState("")
-
+const navigate=useNavigate()
     const getAllMatiriels = async () => {
         try {
             const { data } = await axios.get('http://localhost:3000/api/material/getAll')
@@ -28,6 +24,9 @@ function Materials() {
   return (
     <div>
             <NavBar/>
+        
+        <button className='btn' onClick={()=>{navigate("/createMat")}} >Add Material</button>
+      
     <div className='container'  >
     {data.map((mat) => <MatDetail key={mat.id} mat={mat} />)}
    </div>
