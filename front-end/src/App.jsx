@@ -8,7 +8,10 @@ import AdminHome from "./components/admin/AdminHome.jsx";
 import Students from "./components/admin/Students.jsx";
 import Materials from "./components/admin/Materials.jsx";
 import Teachers from "./components/admin/Teachers.jsx";
+
+import CreateMat from "./components/admin/CreateMat.jsx";
 import axios from "axios";
+
 
 function App() {
 const token=localStorage.getItem("token")
@@ -19,6 +22,7 @@ axios.interceptors.request.use(config=>{
 })
 	return (
 		<Routes>
+			<Route path="/createMat"  element={<CreateMat/>} />
 			<Route path="/students"  element={<Students/>} />
 			<Route path="/materials"  element={<Materials/>} />
 			<Route path="/teachers"  element={<Teachers/>} />
