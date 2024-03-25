@@ -8,18 +8,13 @@ import AdminHome from "./components/admin/AdminHome.jsx";
 import Students from "./components/admin/Students.jsx";
 import Materials from "./components/admin/Materials.jsx";
 import Teachers from "./components/admin/Teachers.jsx";
-
 import CreateMat from "./components/admin/CreateMat.jsx";
-import axios from "axios";
+
+
 
 
 function App() {
-const token=localStorage.getItem("token")
-axios.interceptors.request.use(config=>{
-	if (token) {
-		config.headers.Authorization=`Bearer ${token}`
-	}
-})
+
 	return (
 		<Routes>
 			<Route path="/createMat"  element={<CreateMat/>} />
