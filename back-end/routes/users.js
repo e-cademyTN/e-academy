@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer');
-const upload = multer();
 
-const {signup,signin,getAllUsers,updateUser} = require('../controllers/users')
+
+const {signup,signin,getAllUsers,updateUser,getOne} = require('../controllers/users')
 
 const isAdminAuthenticated = require('../middlewares/isAdminAuthenticated')
-const isUserAuthenticated = require('../middlewares/isUserAuthenticated')
+const isUserAuthenticated = require('../middlewares/isUserAuthenticated');
+
 
 router.post('/signup',signup)
 router.post('/signin',signin)
@@ -14,5 +15,6 @@ router.post('/signin',signin)
 router.get('/getAll',isAdminAuthenticated, getAllUsers)
 //user
 router.put('/update/:id',isUserAuthenticated, updateUser)
+router.get("/getOne/:id",isUserAuthenticated,getOne)
 
 module.exports = router

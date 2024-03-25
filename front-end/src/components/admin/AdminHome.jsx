@@ -1,12 +1,23 @@
 import React from 'react'
-import { NavBar } from './NavBar'
-import Users from './Users'
-import Teachers from './Teachers'
+import NavBar from '../NavBar'
 function AdminHome() {
-  return (<div className='admin'>
-   <NavBar/>
-   <Teachers/>
-   </div>)
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+  return (
+    <div> 
+      <NavBar/>
+      <div>
+hgfghgfd
+      </div>
+    </div>
+
+  )
 }
 
 export default AdminHome

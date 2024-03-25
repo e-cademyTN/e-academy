@@ -91,31 +91,60 @@ const getAllUsers = async (req, res) => {
         res.status(500).send(error);
     }
 };
-const updateUser = async (req, res) => {
-    try {
-        const { id } = req.params; 
-        const { firstName, lastName, imageUrl } = req.body; 
-        let user = await User.findByPk(id);
-        if (!user) {
-            return res.status(404).json({ error: "there's no user" });
-        }
-        if (firstName) {
-            user.firstName = firstName;
-        }
-        if (lastName) {
-            user.lastName = lastName;
-        }
-        if (imageUrl) {
-          const imageBuffer = req.files[0].buffer
-          const imageUrl = await upload(imageBuffer)
-          user.imageUrl = imageUrl
-        }
-        await user.save();
-        res.status(200).json({ message: "updated ...!", user });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send(error);
+const getOne = async (req,res)=>{
+  try{
+    const {id} = req.params
+    const user = await User.findOne({ where: { id: id } })
+    console.log(user)
+      res.status(200).send(user)
+    }catch(err){
+res.status(500).send(err)
     }
+
+}
+const updateUser = async (req, res) => {
+  try {
+      const { id } = req.params; 
+      const { firstName, lastName, imageUrl, currentPassword, newPassword } = req.body; 
+      console.log("firstName :",firstName)
+      console.log('imageUrl from req.body :', imageUrl)
+      let user = await User.findByPk(id);
+      console.log("user :",user)
+      console.log("user.imageUrl :",user.imageUrl)
+
+      if (!user) {
+          return res.status(404).json({ error: "User not found." });
+      }
+      if (firstName) {
+          user.firstName = firstName;
+      }
+      if (lastName) {
+          user.lastName = lastName;
+      }
+     console.log("imageBuffer",req.files[0].buffer)
+      
+        const imageBuffer = req.files[0].buffer
+        const url = await upload(imageBuffer)
+        console.log("secureUrl :",url)
+        user.imageUrl = url
+        console.log(user.imageUrl)
+      
+      
+      if (currentPassword && newPassword) {
+          const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+          if (!passwordMatch) {
+              return res.status(401).json({ error: "Current password is incorrect." });
+          }
+          const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+          user.password = hashedNewPassword;
+      }
+      
+      await user.save();
+      res.status(200).json({ message: "User updated successfully.", user });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send(error);
+  }
 };
 
-module.exports = { signin, signup, getAllUsers, updateUser };
+module.exports = { signin, signup, getAllUsers, updateUser ,getOne};

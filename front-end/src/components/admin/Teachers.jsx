@@ -1,38 +1,30 @@
-import React from 'react'
-import { NavBar } from './NavBar'
-import './index.css'
-import axios from 'axios'
-import { useState,useEffect } from 'react'
+import React ,{useEffect,useState}from 'react'
+import NavBar from '../NavBar'
+import axios from '../../assets/axiosSingleton.js'
+import TeacherDet from './TeacherDet'
+
 function Teachers() {
     const [data, setData] = useState([])
-    const getAllTeachers = async () => {
+    const getAllMatiriels = async () => {
         try {
-            const { data } = await axios.get('http://localhost:3000/api/teacher/getAll')
-            setData(data)
+            const {data} = await axios.get('http://localhost:3000/api/teacher/getAll')
+           setData(data);
         } catch (error) {
             console.log(error)
         }
     }
-
+   
     useEffect(() => {
-        getAllTeachers()
+        getAllMatiriels()
     }, [])
-  return (<div className='div'>
-  <NavBar/>
-  <div className='teacherCon'>
-  <div className="card">
-  <div className="card-border-top">
-  </div>
-  <div className="img">
-  </div>
-  <span> Person</span>
-  <p className="job"> Job Title</p>
-  <button> Click
-  </button>
-</div>
-</div>
-</div>
- )
+  return (
+
+    <div><NavBar/>
+     <div className='container-teacher'  >
+    {data.map((teacher) => <TeacherDet key={teacher.id} teacher={teacher}/>)}
+   </div>
+    </div>
+  )
 }
 
 export default Teachers
