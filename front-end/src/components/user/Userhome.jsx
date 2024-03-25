@@ -6,7 +6,7 @@ import MatDetail from '../admin/MatDetail'
 function Userhome() {
 
   const [data, setData] = useState([])
-  const getAllMatiriels = async () => {
+  const getMyMaterials = async () => {
       try {
           const {data} = await axios.get('http://localhost:3000/api/material/getAll')
          setData(data);
@@ -16,7 +16,7 @@ function Userhome() {
   }
  
   useEffect(() => {
-      getAllMatiriels()
+    getMyMaterials()
   }, [])
    
     

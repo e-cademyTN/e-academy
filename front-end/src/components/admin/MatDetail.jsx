@@ -27,12 +27,25 @@ function MatDetail({mat}) {
         console.log(error)
     }
 }
+const  addmat= async () => {
+       
+    const user=JSON.parse(localStorage.getItem("user"))
+try {
+    const matId=mat.id
+    const userId=user.id
+    console.log(userId,matId);
+    const {data} = await axios.post('http://localhost:3000/api/student/addmaterialuser',{userId:userId,materialId:matId})
+    console.log(data);
+} catch (error) {
+    console.log(error)
+}
+}
   return (
     <div className="plan">
     <div className="inner">
         <span className="pricing">
             <span>
-                ${mat.price} <small>/ m</small>
+                ${mat.price} <small> </small>
             </span>
         </span>
         <p className="title">{mat.name}</p>
@@ -68,7 +81,7 @@ function MatDetail({mat}) {
             Delete
         </a>
         </div></div>:<div className="action">
-        <a className="button"  onClick={()=>{matUser()}}>
+        <a className="button"  onClick={()=>{addmat()}}>
             Join
         </a>
         </div>}
