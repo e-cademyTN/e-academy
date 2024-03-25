@@ -15,8 +15,7 @@ const Navbar = () => {
         { id: 1, text: 'Home', link: '/adminHome' },
         { id: 2, text: 'materials', link: '/materials' },
         { id: 3, text: 'Students', link: '/students' },
-        { id: 4, text: 'Teachers', link: '/teachers' },
-        { id: 5, text: 'Edit profile', link: '/updateprof' }
+        { id: 4, text: 'Edit profile', link: '/updateprof' }
     ];
 
 
@@ -40,16 +39,6 @@ const Navbar = () => {
                     </li>
                 ))}
             </ul>
-            <div
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
-                className='profile-container'
-            >
-                
-              
-                
-                
-            </div>
         </div>
     );
 };

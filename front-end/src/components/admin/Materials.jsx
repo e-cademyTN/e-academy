@@ -24,12 +24,10 @@ const navigate=useNavigate()
   return (
     <div>
             <NavBar/>
-        
-        <button className='btn' onClick={()=>{navigate("/createMat")}} >Add Material</button>
-      
-    <div className='container'  >
-    {data.map((mat) => <MatDetail key={mat.id} mat={mat} />)}
-   </div>
+             <button className='btn' onClick={()=>{navigate("/createMat")}} >Add Material</button>
+        <div className='container'  >
+         {data.map((mat) => <MatDetail key={mat.id} mat={mat} />)}
+         </div>
     </div>)
 } 
 export default Materials
