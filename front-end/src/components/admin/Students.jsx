@@ -20,10 +20,10 @@ function Students() {
     }, [])
   return (
     <div>
-      <NavBar/>
-        <div className='container-user'  >
-    {data.map((user,index) => <UserDet key={user.id} user={user}/>)}
-   </div></div>
+    <NavBar/>
+      <div className='container-user'  >
+  {data.map((user,index) => <UserDet key={user.id} user={user} setSelecteduser ={setSelecteduser}/>)}
+ </div></div>
 
   )
 }
