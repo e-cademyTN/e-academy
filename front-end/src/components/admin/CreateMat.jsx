@@ -1,7 +1,8 @@
-import axios from 'axios'
+import axios from "../../assets/axiosSingleton.js"
 import React, { useState } from 'react'
 import './CreateMat.css';
 import Navbar from '../NavBar';
+import { useNavigate } from "react-router";
 
 const CreateMat = () => {
     const [name, setName] = useState('')
@@ -9,7 +10,7 @@ const CreateMat = () => {
     const [price, setPrice] = useState(0)
     const [date, setDate] = useState('')
     const [link, setLink] = useState('')
-    const token = localStorage.getItem('token')
+    const navigate=useNavigate()
 
     const addMat = async (name, description, price, date, link) => {
         try {
@@ -20,12 +21,8 @@ const CreateMat = () => {
                 price,
                 date,
                 link,
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
             })
-
+            navigate("/materials")
             console.log(material);
         } catch (error) {
             console.log(error)
