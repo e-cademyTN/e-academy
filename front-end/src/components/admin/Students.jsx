@@ -7,8 +7,7 @@ function Students() {
     const [data, setData] = useState([])
     const getAllStudents = async () => {
         try {
-            const {data} = await axios.get('http://localhost:3000/api/users/getAll'
-            )
+            const {data} = await axios.get('http://localhost:3000/api/users/getAll' )
            setData(data);
         } catch (error) {
             console.log(error)
