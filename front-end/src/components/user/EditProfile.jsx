@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from '../../assets/axiosSingleton.js'
+
 import "./EditProfile.css";
 
 export const EditProfile = () => {
@@ -18,12 +19,8 @@ export const EditProfile = () => {
   const fetchUser = async () => {
     try {
       const id = localStorage.getItem("idUser");
-      const token = localStorage.getItem("token");
-      const { data } = await axios.get(`http://localhost:3000/api/users/getOne/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const { data } = await axios.get(`http://localhost:3000/api/users/getOne/${id}`
+      );
       setEmail(data.email);
       setFirstName(data.firstName);
       setLastName(data.lastName);
@@ -41,7 +38,6 @@ export const EditProfile = () => {
   const handleSaveProfile = async () => {
     try {
       const id = localStorage.getItem("idUser");
-      const token = localStorage.getItem("token");
       const formData = new FormData();
 
       formData.append("firstName", firstName);
@@ -50,12 +46,7 @@ export const EditProfile = () => {
       formData.append("newPassword", newPassword);
       formData.append("image", imagePreview);
 
-      const res = await axios.put(`http://localhost:3000/api/users/update/${id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data"
-        }
-      });
+      const res = await axios.put(`http://localhost:3000/api/users/update/${id}`, formData);
       console.log("Update successful:", res.data);
     } catch (err) {
       console.log("Update failed:", err);
