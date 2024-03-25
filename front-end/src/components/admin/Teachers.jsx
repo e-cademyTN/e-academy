@@ -1,18 +1,13 @@
 import React ,{useEffect,useState}from 'react'
 import NavBar from '../NavBar'
-import axios from 'axios'
+import axios from '../../assets/axiosSingleton.js'
 import TeacherDet from './TeacherDet'
 
 function Teachers() {
     const [data, setData] = useState([])
     const getAllMatiriels = async () => {
         try {
-            const token=localStorage.getItem("token")
-            const {data} = await axios.get('http://localhost:3000/api/teacher/getAll',{
-                headers: {
-                    Authorization: `Bearer ${token}`
-                  }
-            })
+            const {data} = await axios.get('http://localhost:3000/api/teacher/getAll')
            setData(data);
         } catch (error) {
             console.log(error)
