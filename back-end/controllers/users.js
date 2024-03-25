@@ -106,7 +106,11 @@ const updateUser = async (req, res) => {
   try {
       const { id } = req.params; 
       const { firstName, lastName, imageUrl, currentPassword, newPassword } = req.body; 
+      console.log("firstName :",firstName)
+      console.log('imageUrl from req.body :', imageUrl)
       let user = await User.findByPk(id);
+      console.log("user :",user)
+      console.log("user.imageUrl :",user.imageUrl)
 
       if (!user) {
           return res.status(404).json({ error: "User not found." });
@@ -117,15 +121,15 @@ const updateUser = async (req, res) => {
       if (lastName) {
           user.lastName = lastName;
       }
-      const x =  []
-      if (imageUrl) {
+     console.log("imageBuffer",req.files[0].buffer)
+      
         const imageBuffer = req.files[0].buffer
-        console.log("buffer: ",req.files[0].buffer)
-        const imageUrl = await upload(imageBuffer)
-        x.push(imageUrl)
-        user.imageUrl = imageUrl
-      }
-      console.log(x)
+        const url = await upload(imageBuffer)
+        console.log("secureUrl :",url)
+        user.imageUrl = url
+        console.log(user.imageUrl)
+      
+      
       if (currentPassword && newPassword) {
           const passwordMatch = await bcrypt.compare(currentPassword, user.password);
           if (!passwordMatch) {

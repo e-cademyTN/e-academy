@@ -7,5 +7,5 @@ const {getMaterialsUser,addMaterialUser,delMaterialUser} = require('../controlle
 
 router.get("/getmaterials/:id",getMaterialsUser)
 router.post("/addmaterialuser",addMaterialUser)
-router.delete("/delmaterialuser",delMaterialUser)
+router.put("/delmaterialuser",delMaterialUser)
 module.exports = router    

@@ -1,0 +1,32 @@
+/* CreateMat.css */
+.create-mat-container h1{
+    text-align: center;
+}
+.create-mat-container {
+    /* Add your container styles here */
+   margin: auto;
+    width: 50%;
+    background-color: #f9f9f9;
+    padding: 40px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.input-field {
+    /* Input field styles */
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    /* Button styles */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}

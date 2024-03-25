@@ -55,7 +55,7 @@ const Login = () => {
 							className={styles.input}
 						/>
 						
-						<button type="submit"  className={styles.blue_btn}>
+						<button  className={styles.blue_btn}>
 							Sing In
 						</button>
 					</form>

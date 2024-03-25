@@ -32,7 +32,9 @@ module.exports = {
 },
 delMaterialUser : async (req, res) => {
   try {
+   
      const {userId,materialId} = req.body
+     console.log(req.body);
      const delmaterial = await Material.findByPk(materialId)
      const user = await User.findByPk(userId);
     
