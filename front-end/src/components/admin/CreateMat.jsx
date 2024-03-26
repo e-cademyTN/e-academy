@@ -35,7 +35,6 @@ const CreateMat = () => {
             <div className="create-mat-container">
                 <h1>Create Material</h1>
                 <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                    {/* Your content here */}
                     <input
                         className="input-field"
                         onChange={(ele) => { setName(ele.target.value) }}

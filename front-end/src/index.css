@@ -7,7 +7,7 @@
   text-align: center;
   padding: 0.625em 0.75em;
   text-decoration: none;
-  margin-left: 50%;
+  margin-left: 20%;
 }
 
 .navbar {
@@ -34,6 +34,7 @@
 .navbar ul {
   list-style-type: none;
   display: flex;
+  list-style-type: none;
 }
 
 .navbar li {
