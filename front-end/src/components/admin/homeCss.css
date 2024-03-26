@@ -1,11 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Component Styles */
 .paragraph {
   font-size: 18px;
-  font-family: "Playfair Display", serif;
   color: #ffffff;
-  margin-top: 10px; 
-  text-align: center; 
+  margin-top: 10px;
+  text-align: center;
 }
 
 .admin-container {
@@ -14,32 +21,32 @@
   align-items: center;
 }
 
-.title {   
+.title {
   font-size: 24px;
   color: #333;
   margin-top: 20px;
-  text-align: center; 
+  text-align: center;
 }
 
 .image {
-  max-width: 100%; 
+  max-width: 100%;
   height: auto;
   margin-top: 20px;
-  width: 700px;
-  
+  width: 100%; /* Responsive width */
+  max-width: 700px; /* Maximum width */
 }
 
 .container-2 {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 }
 
 .content {
   display: flex;
-  flex-direction: column; 
-  align-items: center; 
-  margin-top: 20px; 
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .bttn {
@@ -49,10 +56,20 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 200px; 
+  width: 200px;
   margin-top: 20px;
+  transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 .bttn:hover {
   background-color: #0056b3;
 }
+/* adminHomeCss.css */
+.totalCounts {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+
