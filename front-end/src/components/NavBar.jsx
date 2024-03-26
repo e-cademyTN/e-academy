@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../src/index.css";
 import {useNavigate} from 'react-router-dom';
 
 const Navbar = () => {
     const user=JSON.parse(localStorage.getItem("user"))
     const navigateTo =useNavigate()
+    const token =localStorage.getItem("token") 
     const [hover, setHover] = useState(false);
+    useEffect(()=>{
+       if(!token){
+        navigateTo('/login')
+       }
+    },[])
     const navUser = [
         { id: 1, text: 'Home', link: '/userHome' },
         { id: 2, text: 'My materials', link: '/mymaterial' },
@@ -18,15 +24,8 @@ const Navbar = () => {
         { id: 4, text: 'Edit profile', link: '/updateprof' }
     ];
 
-
-
-    // const logout = () => {
-    //     localStorage.removeItem('x-token');
-    //     navigateto('/login')
-    // };
-
     return (
-        <div className='navbar'>
+       <div className='navbar'>
             <h1>E-Academy</h1>
             <ul>
                 {user.role==='student'?navUser.map(item => (
@@ -39,8 +38,8 @@ const Navbar = () => {
                     </li>
                 ))}
             </ul>
-        </div>
-    );
+        </div>)
+    
 };
 
 export default Navbar;
