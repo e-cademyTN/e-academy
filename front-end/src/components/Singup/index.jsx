@@ -32,7 +32,7 @@ const Signup = () => {
         },
       });
       if (res.status === 201) {
-        navigate("/login");
+        navigate("/confirm");
       }
     } catch (error) {
       console.log(error);
