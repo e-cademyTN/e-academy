@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { upload } = require("../helper/helperFunction.js");
 
 
+
 const signup = async (req, res) => {
   // getting the data
   const { email, firstName, lastName, password, role } = req.body;
@@ -145,6 +146,18 @@ const updateUser = async (req, res) => {
       console.error(error);
       res.status(500).send(error);
   }
-};
+}
 
-module.exports = { signin, signup, getAllUsers, updateUser ,getOne};
+const logout = async (req, res) => {
+
+  try {
+    res.status(200).send({
+      message: "You've been signed out!",
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+;
+
+module.exports = { signin, signup, getAllUsers, updateUser ,getOne, logout};
