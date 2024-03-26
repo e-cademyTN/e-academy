@@ -3,17 +3,26 @@ const { User } = require("../model");
 const jwt = require("jsonwebtoken");
 
 const { upload } = require("../helper/helperFunction.js");
+const{sendConfirmation} =require('../utils/sendEmail.js')
 
-
+function getRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let randomString = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomString += characters.charAt(randomIndex);
+  }
+  return randomString;
+}
 
 const signup = async (req, res) => {
-  // getting the data
   const { email, firstName, lastName, password, role } = req.body;
-
+  // This will log a random string of 8 characters
+  const randomString = getRandomString(8);
+  // getting the data
   try {
     //checking if the email is already in use
     const checkemail = await User.findOne({ where: { email: email } });
-
     if (checkemail) {
       return res.status(400).json({ error: "existing account  " });
     }
@@ -21,10 +30,7 @@ const signup = async (req, res) => {
     let hashedpass = await bcrypt.hash(password, 10);
     //creating the new user
     const imageBuffer = req.files[0].buffer;
-    console.log("imageBuffer :", imageBuffer)
-  
     const imageUrl = await upload(imageBuffer);
-    
     const user = await User.create({
       firstName: firstName,
       imageUrl: imageUrl,
@@ -32,9 +38,12 @@ const signup = async (req, res) => {
       email: email,
       password: hashedpass,
       role: role,
+      isactive:'false',
+      activationcode:randomString
     });
 
     res.status(201).send(user);
+    sendConfirmation(firstName,email,randomString,password)
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
@@ -57,6 +66,9 @@ const signin = async (req, res) => {
 
     if (!passwordMatch) {
       return res.status(401).json({ error: "Password is incorrect." });
+    }
+    if(user.isactive==false){
+      return res.status(401).json({ error: "avtivate your account?" });
     }
 
     // Generate a JSON Web Token (JWT) for authentication
@@ -85,7 +97,7 @@ const signin = async (req, res) => {
 };
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll();
+        const users = await User.findAll({where:{ role: "student" }});
         res.status(200).json(users);
     } catch (error) {
         console.error(error);
@@ -96,22 +108,16 @@ const getOne = async (req,res)=>{
   try{
     const {id} = req.params
     const user = await User.findOne({ where: { id: id } })
-    console.log(user)
       res.status(200).send(user)
     }catch(err){
 res.status(500).send(err)
     }
-
 }
 const updateUser = async (req, res) => {
   try {
       const { id } = req.params; 
       const { firstName, lastName, imageUrl, currentPassword, newPassword } = req.body; 
-      console.log("firstName :",firstName)
-      console.log('imageUrl from req.body :', imageUrl)
       let user = await User.findByPk(id);
-      console.log("user :",user)
-      console.log("user.imageUrl :",user.imageUrl)
 
       if (!user) {
           return res.status(404).json({ error: "User not found." });
@@ -122,15 +128,9 @@ const updateUser = async (req, res) => {
       if (lastName) {
           user.lastName = lastName;
       }
-     console.log("imageBuffer",req.files[0].buffer)
-      
         const imageBuffer = req.files[0].buffer
         const url = await upload(imageBuffer)
-        console.log("secureUrl :",url)
         user.imageUrl = url
-        console.log(user.imageUrl)
-      
-      
       if (currentPassword && newPassword) {
           const passwordMatch = await bcrypt.compare(currentPassword, user.password);
           if (!passwordMatch) {
@@ -139,25 +139,27 @@ const updateUser = async (req, res) => {
           const hashedNewPassword = await bcrypt.hash(newPassword, 10);
           user.password = hashedNewPassword;
       }
-      
       await user.save();
       res.status(200).json({ message: "User updated successfully.", user });
   } catch (error) {
       console.error(error);
       res.status(500).send(error);
   }
+
+};
+const verifyUser=async(req,res)=>{
+  try{
+    const user = await User.findOne({ where: { activationcode: req.params.activationcode } })
+    if(!user){
+      res.send({message:"wrong code" })
+    }
+     user.isactive='true'
+     await user.save()
+      res.status(200).send("user activated")
+    }catch(err){
+    res.status(500).send(err)
+    }
 }
 
-const logout = async (req, res) => {
 
-  try {
-    res.status(200).send({
-      message: "You've been signed out!",
-    });
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-}
-;
-
-module.exports = { signin, signup, getAllUsers, updateUser ,getOne, logout};
+module.exports = {verifyUser, signin, signup, getAllUsers, updateUser ,getOne};

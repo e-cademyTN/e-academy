@@ -9,6 +9,14 @@ body {
 
 /* Component Styles */
 .paragraph {
+
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 24px;
+  font-family: "Playfair Display", serif;
+  color: #0a0000;
+  margin-top: 10px; 
+  text-align: center; 
   font-size: 18px;
   color: #ffffff;
   margin-top: 10px;
@@ -58,13 +66,15 @@ body {
   cursor: pointer;
   width: 200px;
   margin-top: 20px;
-  transition: background-color 0.3s ease; /* Smooth transition */
+
+  font-size: medium;
+  transition: background-color 0.3s ease; 
 }
 
 .bttn:hover {
   background-color: #0056b3;
 }
-/* adminHomeCss.css */
+
 .totalCounts {
   margin-top: 20px;
   font-size: 18px;

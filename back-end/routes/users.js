@@ -1,17 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const multer = require('multer');
 
 
-const {signup,signin,getAllUsers,updateUser,getOne,logout} = require('../controllers/users')
+
+const {verifyUser,signup,signin,getAllUsers,updateUser,getOne} = require('../controllers/users')
 
 const isAdminAuthenticated = require('../middlewares/isAdminAuthenticated')
 const isUserAuthenticated = require('../middlewares/isUserAuthenticated');
-const { signOutList, verifySession } = require ('../middlewares/blacklist')
 
+router.get('/confirm/:activationcode', verifyUser);
 router.post('/signup',signup)
 router.post('/signin',signin)
-router.get('/logout',signOutList,logout)
 //admin
 router.get('/getAll',isAdminAuthenticated,getAllUsers)
 //user

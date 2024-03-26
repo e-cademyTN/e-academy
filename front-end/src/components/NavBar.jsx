@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../src/index.css";
 import {useNavigate} from 'react-router-dom';
 
@@ -8,7 +8,13 @@ const Navbar = () => {
 
     const navigateTo =useNavigate()
 
-    const [hover, setHover] = useState(false);
+    const token =localStorage.getItem("token") 
+    useEffect(()=>{
+       if(!token){
+        navigateTo('/login')
+       }
+    },[])
+
 
     const navUser = [
         { id: 1, text: 'Home', link: '/userHome' },
@@ -23,12 +29,14 @@ const Navbar = () => {
      
     ];
 
+
    const logout =()=> {
     localStorage.clear();
     navigateTo('/login')
 }
+
     return (
-        <div className='navbar'>
+       <div className='navbar'>
             <h1>E-Academy</h1>
             <ul>
                 {user.role==='student'?navUser.map(item => (
@@ -43,7 +51,12 @@ const Navbar = () => {
             </ul>
             <h1 onClick={()=>logout()}>logout</h1>
         </div>
-    );
+       )
+    
+
+           
+ 
+
 };
 
 export default Navbar;

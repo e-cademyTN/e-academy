@@ -54,6 +54,7 @@ const CreateMat = () => {
                         type='number'
                     />
                     <input
+                    type="datetime-local"
                         className="input-field"
                         onChange={(ele) => { setDate(ele.target.value) }}
                         placeholder='date'
