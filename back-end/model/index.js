@@ -27,7 +27,7 @@ Material.belongsToMany(User, { through: 'UserMaterial' }, { foreignKey: 'userID'
 const connect = async () => {
     try {
         await db.sequelize.authenticate();
-        await db.sequelize.sync({force :true})
+        await db.sequelize.sync({force :false})
         console.log('Connected to database successfully')
     } catch (error) {
         console.error('Connection failed to connect with database', error)
