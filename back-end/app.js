@@ -3,7 +3,6 @@ const cors = require('cors')
  const multer = require('multer');
 const usersRouter = require('./routes/users')
 const materialRouter = require('./routes/material')
-const teacherRouter = require('./routes/teacher')
 const stud_materialRouter = require ('./routes/stud_material')
 
 var morgan = require('morgan')
@@ -18,7 +17,6 @@ app.use(cors())
 
 app.use('/api/users', usersRouter)
 app.use('/api/material', materialRouter)
-app.use('/api/teacher', teacherRouter)
 app.use('/api/student', stud_materialRouter)
 
 app.listen(port, () => {

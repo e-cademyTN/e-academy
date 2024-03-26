@@ -1,19 +1,20 @@
-/* CreateMat.css */
+
 .create-mat-container h1{
     text-align: center;
 }
 .create-mat-container {
-    /* Add your container styles here */
-   margin: auto;
+    margin: auto;
     width: 50%;
     background-color: #f9f9f9;
     padding: 40px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    box-shadow:  7px 7px 14px #49bced,
+    30px -7px 14px #ffffff;
 }
 
 .input-field {
-    /* Input field styles */
+  
     width: 90%;
     padding: 10px;
     margin-bottom: 10px;
@@ -22,7 +23,6 @@
 }
 
 .submit-button {
-    /* Button styles */
     background-color: #007bff;
     color: #fff;
     border: none;

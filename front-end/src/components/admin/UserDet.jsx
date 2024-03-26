@@ -1,20 +1,17 @@
 import React from 'react'
 
-function UserDet({user}) {
-    console.log(user);
+function UserDet({ user }) {
+  console.log(user);
   return (
-        <div class="card">
-       <img className="card__avatar" src={user.imageUrl} alt="" />
-    <div class="card__content">
-    
-    <p class="card__title">{user.firstName}</p>
- 
-    <p class="card__title">{user.lastName}</p>
-   
-    <p class="card__description">{user.email}</p>
-   <center> <button className='white_btn' >see classes</button></center>
-  </div> 
-</div>
+    <div class="card-client">
+      <div class="user-picture">
+        <img src={user.imageUrl} alt="" />
+      </div>
+      <p class="name-client">
+        {user.firstName} <br/>
+        {user.lastName}
+      </p>
+    </div>
 
   )
 }
