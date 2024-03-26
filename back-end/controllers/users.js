@@ -5,28 +5,24 @@ const jwt = require("jsonwebtoken");
 const { upload } = require("../helper/helperFunction.js");
 const{sendConfirmation} =require('../utils/sendEmail.js')
 
+function getRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let randomString = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomString += characters.charAt(randomIndex);
+  }
+  return randomString;
+}
 
 const signup = async (req, res) => {
   const { email, firstName, lastName, password, role } = req.body;
   // This will log a random string of 8 characters
-  function getRandomString(length) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let randomString = '';
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      randomString += characters.charAt(randomIndex);
-    }
-    return randomString;
-  }
-  
   const randomString = getRandomString(8);
-  
-  
   // getting the data
   try {
     //checking if the email is already in use
     const checkemail = await User.findOne({ where: { email: email } });
-console.log(checkemail);
     if (checkemail) {
       return res.status(400).json({ error: "existing account  " });
     }
@@ -34,7 +30,6 @@ console.log(checkemail);
     let hashedpass = await bcrypt.hash(password, 10);
     //creating the new user
     const imageBuffer = req.files[0].buffer;
-    console.log("imageBuffer :", imageBuffer)
     const imageUrl = await upload(imageBuffer);
     const user = await User.create({
       firstName: firstName,
@@ -117,7 +112,6 @@ const getOne = async (req,res)=>{
     }catch(err){
 res.status(500).send(err)
     }
-
 }
 const updateUser = async (req, res) => {
   try {
@@ -151,9 +145,9 @@ const updateUser = async (req, res) => {
       console.error(error);
       res.status(500).send(error);
   }
+
 };
 const verifyUser=async(req,res)=>{
-  console.log(req.params)
   try{
     const user = await User.findOne({ where: { activationcode: req.params.activationcode } })
     if(!user){
@@ -163,10 +157,9 @@ const verifyUser=async(req,res)=>{
      await user.save()
       res.status(200).send("user activated")
     }catch(err){
-   
-
-res.status(500).send(err)
+    res.status(500).send(err)
     }
 }
 
-module.exports = { verifyUser,signin, signup, getAllUsers, updateUser ,getOne};
+
+module.exports = {verifyUser, signin, signup, getAllUsers, updateUser ,getOne};
