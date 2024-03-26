@@ -5,8 +5,8 @@ const sendConfirmation=async(name,email,confirmationCode,password)=>{
         const transporter=nodemailer.createTransport({
             service:'yahoo',
             auth: {
-                user:  "rafikmhadhbi@yahoo.fr",
-                pass: "pvlzkdjalmylxcii"
+                user:  process.env.EMAIL,
+                pass:  process.env.PASS
               }
         })
          transporter.sendMail({
