@@ -13,7 +13,7 @@ router.post('/signup',signup)
 router.post('/signin',signin)
 router.get('/logout',signOutList,logout)
 //admin
-router.get('/getAll',isAdminAuthenticated, verifySession,getAllUsers)
+router.get('/getAll',isAdminAuthenticated,getAllUsers)
 //user
 router.put('/update/:id',isUserAuthenticated, updateUser)
 router.get("/getOne/:id",isUserAuthenticated,getOne)
