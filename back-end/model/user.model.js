@@ -28,7 +28,18 @@ email: {
             allowNull: false,
                    
 
-        }
+        },
+isactive: {
+            type: DataTypes.STRING,
+            defaultValue:"false",
+        },
+activationcode: {
+            type: DataTypes.STRING,
+            allowNull: false,
+                   
+
+        },
+
     });
 
     return User;

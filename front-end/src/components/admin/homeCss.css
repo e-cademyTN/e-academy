@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Component Styles */
+.paragraph {
+
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 24px;
+  font-family: "Playfair Display", serif;
+  color: #0a0000;
+  margin-top: 10px; 
+  text-align: center; 
+  font-size: 18px;
+  color: #ffffff;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  color: #333;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+  width: 100%; /* Responsive width */
+  max-width: 700px; /* Maximum width */
+}
+
+.container-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.bttn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+  margin-top: 20px;
+
+  font-size: medium;
+  transition: background-color 0.3s ease; 
+}
+
+.bttn:hover {
+  background-color: #0056b3;
+}
+
+.totalCounts {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+
